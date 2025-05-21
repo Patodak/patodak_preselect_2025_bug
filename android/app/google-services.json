@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "7030042110",
+    "project_id": "patodakapp",
+    "storage_bucket": "patodakapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7030042110:android:f5ba57c58bd2df49cc24af",
+        "android_client_info": {
+          "package_name": "com.patodak.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8RDxfh1p43-At83AodyKRdORpU1-v_zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
