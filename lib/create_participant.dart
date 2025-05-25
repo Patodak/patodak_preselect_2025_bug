@@ -301,11 +301,9 @@ class _ParticipantListPageState extends State<ParticipantListPage> {
                             Navigator.of(context).pop();
                             _deleteParticipant(participant.id);
                           },
-                          child: Text(
-                            'Eliminar',
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
+                          child: Text('Eliminar'),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Theme.of(context).colorScheme.error,
                           ),
                         ),
                       ],

@@ -141,11 +141,9 @@ class _CrewListPageState extends State<CrewListPage> {
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
-              child: Text(
-                'Eliminar',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.error,
-                ),
+              child: Text('Eliminar'),
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
               ),
             ),
           ],
