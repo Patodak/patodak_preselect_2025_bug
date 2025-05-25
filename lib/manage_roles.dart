@@ -78,6 +78,7 @@ class _ManageRolesState extends State<ManageRoles> {
               controller: _searchController,
               decoration: InputDecoration(
                 labelText: 'Busca usuarios',
+                border: OutlineInputBorder(),
               ),
               onChanged: (value) {
                 setState(() {});

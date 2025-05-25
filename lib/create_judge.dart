@@ -60,8 +60,7 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Eliminar jurado',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Eliminar jurado'),
         content: Text('¿Estás seguro de eliminar este jurado?'),
         actions: [
           TextButton(
@@ -69,11 +68,9 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
               await _firestore.collection('jueces').doc(docId).delete();
               Navigator.pop(context);
             },
-            child: Text(
-              'Eliminar',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.error,
-              ),
+            child: Text('Eliminar'),
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
             ),
           ),
           TextButton(
@@ -113,7 +110,7 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
-              title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+              title: Text(title),
               content: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -171,7 +168,7 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text('Cancelar', style: TextStyle(color: Colors.grey)),
+                  child: Text('Cancelar'),
                 ),
                 TextButton(
                   onPressed: () {
@@ -190,8 +187,10 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
                     );
                     Navigator.pop(context);
                   },
-                  child: Text('Aceptar',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text('Aceptar'),
+                  style: TextButton.styleFrom(
+                    textStyle: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             );
@@ -260,7 +259,10 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
         decoration: BoxDecoration(
           // Fondo sutil con gradiente para un toque moderno
           gradient: LinearGradient(
-            colors: [Colors.blue.shade50, Colors.blue.shade100],
+            colors: [
+              Theme.of(context).colorScheme.surfaceContainerLowest,
+              Theme.of(context).colorScheme.surfaceContainerLow
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
