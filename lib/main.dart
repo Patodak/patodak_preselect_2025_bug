@@ -103,7 +103,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    
+
     // Base Light Theme using Material 3
     final lightThemeColorScheme = ColorScheme.fromSeed(
       seedColor: myColor,
@@ -121,11 +121,13 @@ class MyApp extends StatelessWidget {
       // ElevatedButtonTheme will use M3 defaults
       appBarTheme: AppBarTheme(
         backgroundColor: lightThemeColorScheme.surfaceContainerHighest,
-        foregroundColor: lightThemeColorScheme.onSurfaceVariant, // For icons and actions
+        foregroundColor:
+            lightThemeColorScheme.onSurfaceVariant, // For icons and actions
         titleTextStyle: ThemeData.light() // Base light theme for text
             .textTheme
             .titleLarge!
-            .copyWith(color: lightThemeColorScheme.onSurfaceVariant, fontSize: 20),
+            .copyWith(
+                color: lightThemeColorScheme.onSurfaceVariant, fontSize: 20),
       ),
     );
 
