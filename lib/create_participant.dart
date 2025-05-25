@@ -279,7 +279,7 @@ class _ParticipantListPageState extends State<ParticipantListPage> {
               });
             },
             trailing: IconButton(
-              icon: Icon(Icons.delete),
+              icon: Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
               onPressed: () {
                 showDialog(
                   context: context,
@@ -300,7 +300,7 @@ class _ParticipantListPageState extends State<ParticipantListPage> {
                             Navigator.of(context).pop();
                             _deleteParticipant(participant.id);
                           },
-                          child: Text('Eliminar'),
+                          child: Text('Eliminar', style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error)),
                         ),
                       ],
                     );
