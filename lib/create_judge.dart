@@ -69,7 +69,12 @@ class _CreateJudgePageState extends State<CreateJudgePage> {
               await _firestore.collection('jueces').doc(docId).delete();
               Navigator.pop(context);
             },
-            child: Text('Eliminar', style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error)),
+            child: Text(
+              'Eliminar',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),

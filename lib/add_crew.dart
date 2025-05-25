@@ -124,56 +124,59 @@ class _CrewListPageState extends State<CrewListPage> {
   }
 
   Future<void> _deleteCrew(String crewId) async {
-  final confirm = await showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Confirmar eliminación'),
-        content: Text('¿Estás seguro de que deseas eliminar esta crew?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: Text('Cancelar'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true);
-            },
-            child: Text('Eliminar', style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error)),
-          ),
-        ],
-      );
-    },
-  );
-
-  if (confirm == true) {
-    await FirebaseFirestore.instance
-        .collection('crews')
-        .doc(crewId)
-        .delete();
-
-    showDialog(
+    final confirm = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Crew eliminada'),
-          content: Text('La crew ha sido eliminada exitosamente.'),
+          title: Text('Confirmar eliminación'),
+          content: Text('¿Estás seguro de que deseas eliminar esta crew?'),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
-                _fetchCrews();
+                Navigator.of(context).pop(false);
               },
-              child: Text('Cerrar'),
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: Text(
+                'Eliminar',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
             ),
           ],
         );
       },
     );
+
+    if (confirm == true) {
+      await FirebaseFirestore.instance.collection('crews').doc(crewId).delete();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Crew eliminada'),
+            content: Text('La crew ha sido eliminada exitosamente.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _fetchCrews();
+                },
+                child: Text('Cerrar'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
-}
+
   Future<void> _updateCrewName(String crewId) async {
     TextEditingController _newNameController = TextEditingController();
 
@@ -215,7 +218,8 @@ class _CrewListPageState extends State<CrewListPage> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: Text('Nombre de la crew actualizado'),
-                      content: Text('El nombre de la crew ha sido actualizado exitosamente.'),
+                      content: Text(
+                          'El nombre de la crew ha sido actualizado exitosamente.'),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -257,7 +261,8 @@ class _CrewListPageState extends State<CrewListPage> {
                   onPressed: () => _updateCrewName(crew.id),
                 ),
                 IconButton(
-                  icon: Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
+                  icon: Icon(Icons.delete,
+                      color: Theme.of(context).colorScheme.error),
                   onPressed: () => _deleteCrew(crew.id),
                 ),
               ],
