@@ -13,28 +13,39 @@ class _AdminPageState extends State<AdminPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   TextEditingController _passwordController = TextEditingController();
 
-  // Función reutilizable para crear botones estilizados con Cards.
+  // Updated _buildAdminButton to use ElevatedButton.icon for Material 3 consistency.
   Widget _buildAdminButton({
     required BuildContext context,
     required IconData icon,
     required String label,
-    required Color color,
+    required Color seedColor, // Changed from 'color' to 'seedColor'
     required VoidCallback onPressed,
   }) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      elevation: 4,
+    // Determine foreground color based on seedColor brightness for better contrast if needed.
+    // For simplicity here, using Colors.white as it was the previous intent.
+    // A more sophisticated approach might use:
+    // final bool isDark = seedColor.computeLuminance() < 0.5;
+    // final Color foregroundColor = isDark ? Colors.white : Colors.black;
+    final Color foregroundColor = Colors.white;
+
+    final buttonStyle = ElevatedButton.styleFrom(
+      backgroundColor: seedColor,
+      foregroundColor: foregroundColor,
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20), // Adjusted padding
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        leading: Icon(icon, color: Colors.white, size: 32),
-        title: Text(
+      elevation: 4, // Retaining some elevation
+    );
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: ElevatedButton.icon(
+        icon: Icon(icon, size: 28), // Adjusted icon size
+        label: Text(
           label,
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        tileColor: color,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        onTap: onPressed,
+        style: buttonStyle,
+        onPressed: onPressed,
       ),
     );
   }
@@ -49,6 +60,8 @@ class _AdminPageState extends State<AdminPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
+            // These colors might need adjustment if they clash with M3 theme.
+            // For now, leaving them as per instructions.
             colors: [Colors.deepPurple.shade200, Colors.deepPurple.shade600],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -61,7 +74,7 @@ class _AdminPageState extends State<AdminPage> {
               context: context,
               icon: Icons.person_add,
               label: 'Agregar Participante',
-              color: Colors.green,
+              seedColor: Colors.green, // Changed to seedColor
               onPressed: () {
                 Navigator.push(
                   context,
@@ -75,7 +88,7 @@ class _AdminPageState extends State<AdminPage> {
               context: context,
               icon: Icons.person_add_alt_1,
               label: 'Agregar Juez',
-              color: Colors.blue,
+              seedColor: Colors.blue, // Changed to seedColor
               onPressed: () {
                 Navigator.push(
                   context,
@@ -89,7 +102,7 @@ class _AdminPageState extends State<AdminPage> {
               context: context,
               icon: Icons.group_add,
               label: 'Agregar Crew',
-              color: Colors.orange,
+              seedColor: Colors.orange, // Changed to seedColor
               onPressed: () {
                 Navigator.push(
                   context,

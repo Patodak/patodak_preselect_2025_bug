@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Crew {
@@ -7,25 +6,6 @@ class Crew {
   String name;
 
   Crew({required this.id, required this.name});
-}
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Crew App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AddCrewPage(),
-    );
-  }
 }
 
 class AddCrewPage extends StatefulWidget {
@@ -161,7 +141,7 @@ class _CrewListPageState extends State<CrewListPage> {
             onPressed: () {
               Navigator.of(context).pop(true);
             },
-            child: Text('Eliminar'),
+            child: Text('Eliminar', style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error)),
           ),
         ],
       );
@@ -277,7 +257,7 @@ class _CrewListPageState extends State<CrewListPage> {
                   onPressed: () => _updateCrewName(crew.id),
                 ),
                 IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: Icon(Icons.delete, color: Theme.of(context).colorScheme.error),
                   onPressed: () => _deleteCrew(crew.id),
                 ),
               ],

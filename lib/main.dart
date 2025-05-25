@@ -37,76 +37,101 @@ void main() async {
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-final Color myColor = Color(0xFFffd808);
+const Color myColor = Color(0xFFffd808); // Primary seed color
+const Color pinkSeedColor = Color.fromARGB(255, 252, 156, 198);
 
-ThemeData get _darkTheme => ThemeData.dark().copyWith(
-      primaryColor: myColor,
-      sliderTheme: ThemeData.dark().sliderTheme.copyWith(
-            activeTrackColor: myColor,
-            thumbColor: myColor,
-            overlayColor: myColor.withOpacity(0.2),
-          ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(),
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: myColor,
-        titleTextStyle: ThemeData.dark()
-            .textTheme
-            .headlineSmall!
-            .copyWith(color: Colors.black, fontSize: 15),
-      ),
-    );
+// Dark Theme using Material 3
+ThemeData get _darkTheme {
+  final colorScheme = ColorScheme.fromSeed(
+    seedColor: myColor,
+    brightness: Brightness.dark,
+  );
+  return ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.dark,
+    colorScheme: colorScheme,
+    sliderTheme: SliderThemeData(
+      activeTrackColor: colorScheme.primary,
+      thumbColor: colorScheme.primary,
+      overlayColor: colorScheme.primary.withOpacity(0.2),
+    ),
+    // ElevatedButtonTheme will use M3 defaults
+    appBarTheme: AppBarTheme(
+      backgroundColor: colorScheme.surfaceContainerHighest,
+      foregroundColor: colorScheme.onSurfaceVariant, // For icons and actions
+      titleTextStyle: ThemeData.dark() // Base dark theme for text
+          .textTheme
+          .titleLarge!
+          .copyWith(color: colorScheme.onSurfaceVariant, fontSize: 20),
+    ),
+  );
+}
 
-ThemeData get _pinkTheme => ThemeData.light().copyWith(
-      primaryColor: Color.fromARGB(255, 252, 156, 198),
-      scaffoldBackgroundColor: Colors.pink.shade100,
-      sliderTheme: ThemeData.light().sliderTheme.copyWith(
-            activeTrackColor: Color.fromARGB(255, 252, 156, 198),
-            thumbColor: Color.fromARGB(255, 252, 156, 198),
-            overlayColor: Color.fromARGB(255, 252, 156, 198).withOpacity(0.2),
-          ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(),
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 252, 156, 198),
-        titleTextStyle: ThemeData.light()
-            .textTheme
-            .headlineSmall!
-            .copyWith(color: const Color.fromARGB(255, 0, 0, 0), fontSize: 15),
-      ),
-      textTheme: ThemeData.light().textTheme.apply(
-            bodyColor: Color.fromARGB(255, 0, 0, 0),
-            displayColor: Colors.white,
-          ),
-    );
+// Pink Theme using Material 3
+ThemeData get _pinkTheme {
+  final colorScheme = ColorScheme.fromSeed(
+    seedColor: pinkSeedColor,
+    brightness: Brightness.light,
+  );
+  return ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    colorScheme: colorScheme,
+    scaffoldBackgroundColor: colorScheme.background,
+    sliderTheme: SliderThemeData(
+      activeTrackColor: colorScheme.primary,
+      thumbColor: colorScheme.primary,
+      overlayColor: colorScheme.primary.withOpacity(0.2),
+    ),
+    // ElevatedButtonTheme will use M3 defaults
+    appBarTheme: AppBarTheme(
+      backgroundColor: colorScheme.surfaceContainerHighest,
+      foregroundColor: colorScheme.onSurfaceVariant, // For icons and actions
+      titleTextStyle: ThemeData.light() // Base light theme for text
+          .textTheme
+          .titleLarge!
+          .copyWith(color: colorScheme.onSurfaceVariant, fontSize: 20),
+    ),
+    textTheme: ThemeData.light().textTheme.apply(
+          bodyColor: colorScheme.onBackground,
+          displayColor: colorScheme.onBackground,
+        ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    
+    // Base Light Theme using Material 3
+    final lightThemeColorScheme = ColorScheme.fromSeed(
+      seedColor: myColor,
+      brightness: Brightness.light,
+    );
+    final baseLightTheme = ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      colorScheme: lightThemeColorScheme,
+      sliderTheme: SliderThemeData(
+        activeTrackColor: lightThemeColorScheme.primary,
+        thumbColor: lightThemeColorScheme.primary,
+        overlayColor: lightThemeColorScheme.primary.withOpacity(0.2),
+      ),
+      // ElevatedButtonTheme will use M3 defaults
+      appBarTheme: AppBarTheme(
+        backgroundColor: lightThemeColorScheme.surfaceContainerHighest,
+        foregroundColor: lightThemeColorScheme.onSurfaceVariant, // For icons and actions
+        titleTextStyle: ThemeData.light() // Base light theme for text
+            .textTheme
+            .titleLarge!
+            .copyWith(color: lightThemeColorScheme.onSurfaceVariant, fontSize: 20),
+      ),
+    );
 
     return MaterialApp(
       title: 'PATODAK APP',
-      theme: ThemeData(
-        primaryColor: myColor,
-        sliderTheme: SliderThemeData(
-          activeTrackColor: myColor,
-          thumbColor: myColor,
-          overlayColor: myColor.withOpacity(0.2),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(),
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: myColor,
-          titleTextStyle: ThemeData.light()
-              .textTheme
-              .headlineSmall!
-              .copyWith(color: Colors.black, fontSize: 15),
-        ),
-      ),
+      theme: baseLightTheme,
       darkTheme: _darkTheme,
       themeMode: themeNotifier.themeMode,
       home: MainMenuPage(),
@@ -129,7 +154,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
+    // Removed: WidgetsBinding.instance.addPostFrameCallback((_) {});
   }
 
   @override
